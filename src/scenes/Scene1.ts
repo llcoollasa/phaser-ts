@@ -1,39 +1,24 @@
-import Phaser from 'phaser'
+import Phaser from "phaser";
 
-export default class Scene1 extends Phaser.Scene
-{
-	constructor()
-	{
-		super('hello-world')
-	}
+export default class Scene1 extends Phaser.Scene {
+    background: Phaser.GameObjects.TileSprite | undefined;
 
-	preload()
-    {
-        this.load.setBaseURL('http://labs.phaser.io')
-
-        this.load.image('sky', 'assets/skies/space3.png')
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png')
-        this.load.image('red', 'assets/particles/red.png')
+    constructor() {
+        super("sceneone");
     }
 
-    create()
-    {
-        this.add.image(400, 300, 'sky')
+    preload() {
+        this.load.image("sky", "images/sky.png");
+    }
 
-        const particles = this.add.particles('red')
-
-        const emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        })
-
-        const logo = this.physics.add.image(400, 100, 'logo')
-
-        logo.setVelocity(100, 200)
-        logo.setBounce(1, 1)
-        logo.setCollideWorldBounds(true)
-
-        emitter.startFollow(logo)
+    create() {
+        this.background = this.add.tileSprite(
+            0,
+            0,
+            this.game.config.width as number,
+            this.game.config.height as number,
+            "sky"
+        );
+        this.background.setOrigin(0, 0);
     }
 }
